@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#04081C">
+<title>TASAMA Meeting Room Guide — Yealink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Backgrounds — deep TASAMA blue-violet base */
+    --bg-deep: #050322;
+    --bg-surface: #0A0735;
+    --bg-elevated: #131046;
+    --bg-card: rgba(255,255,255,0.04);
+    --bg-card-hover: rgba(255,255,255,0.07);
+    --border-soft: rgba(255,255,255,0.08);
+    --border-medium: rgba(255,255,255,0.14);
+    --text-primary: #F2F4FF;
+    --text-secondary: rgba(242,244,255,0.72);
+    --text-tertiary: rgba(242,244,255,0.48);
+    /* TASAMA official palette */
+    --brand-primary: #10069E;          /* Main TASAMA blue */
+    --brand-primary-light: #5247D9;    /* Lifted for legibility on dark */
+    --brand-primary-glow: rgba(82,71,217,0.35);
+    --accent-gold: #B59D5E;            /* TASAMA gold */
+    --accent-gold-soft: rgba(181,157,94,0.12);
+    --accent-mint: #ADDC91;            /* TASAMA mint */
+    --accent-mint-soft: rgba(173,220,145,0.12);
+    --accent-amber: #FFB45B;           /* Warning only */
+    --gradient-mesh: radial-gradient(ellipse at 20% 0%, rgba(82,71,217,0.22) 0%, transparent 50%),
+                     radial-gradient(ellipse at 80% 60%, rgba(16,6,158,0.18) 0%, transparent 55%),
+                     radial-gradient(ellipse at 50% 100%, rgba(181,157,94,0.05) 0%, transparent 50%);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--gradient-mesh);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ============ HEADER ============ */
+  header {
+    padding: 28px 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 36px;
+  }
+
+  .brand-logo {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .pif-logo {
+    height: 30px;
+    width: auto;
+    display: block;
+    opacity: 0.95;
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 8px 0 36px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-gold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent-gold);
+  }
+
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: clamp(34px, 9vw, 44px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-gold);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 38ch;
+  }
+
+  /* ============ METHOD PICKER ============ */
+  .picker-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .methods {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+
+  .method-tab {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 16px 14px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .method-tab:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-medium);
+    transform: translateY(-1px);
+  }
+
+  .method-tab.active {
+    background: linear-gradient(135deg, rgba(82,71,217,0.22) 0%, rgba(16,6,158,0.10) 100%);
+    border-color: var(--brand-primary-light);
+    box-shadow: 0 0 0 1px var(--brand-primary-light), 0 12px 30px -12px var(--brand-primary-glow);
+  }
+
+  .method-tab.active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--brand-primary-light));
+  }
+
+  .method-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    letter-spacing: 0.05em;
+  }
+
+  .method-tab.active .method-num {
+    color: var(--accent-gold);
+  }
+
+  .method-name {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  /* ============ METHOD CONTENT ============ */
+  .method-panel {
+    display: none;
+    animation: panelIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .method-panel.active {
+    display: block;
+  }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-header {
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .panel-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 14px;
+  }
+
+  .panel-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+  }
+
+  .chip-best {
+    background: var(--accent-gold-soft);
+    color: var(--accent-gold);
+    border: 1px solid rgba(181,157,94,0.3);
+  }
+
+  .chip-time {
+    background: var(--accent-mint-soft);
+    color: var(--accent-mint);
+    border: 1px solid rgba(173,220,145,0.3);
+  }
+
+  .panel-desc {
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  /* ============ STEPS ============ */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    position: relative;
+  }
+
+  .step-marker {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-gold);
+    position: relative;
+    z-index: 2;
+  }
+
+  .step:not(:last-child) .step-marker::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 1px;
+    height: calc(100% + 18px);
+    background: linear-gradient(180deg, var(--border-medium) 0%, transparent 100%);
+    transform: translateX(-50%);
+  }
+
+  .step-body {
+    flex: 1;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .step-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-primary);
+  }
+
+  .step-text strong {
+    color: var(--accent-gold);
+    font-weight: 600;
+  }
+
+  .step-text code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-soft);
+    padding: 2px 7px;
+    border-radius: 5px;
+    color: var(--text-primary);
+  }
+
+  .step-note {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.55;
+  }
+
+  /* ============ FIGURE / IMAGES ============ */
+  figure {
+    margin-top: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-soft);
+    background: var(--bg-elevated);
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: zoom-in;
+    transition: opacity 0.2s;
+  }
+
+  figure img:hover {
+    opacity: 0.92;
+  }
+
+  figcaption {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--border-soft);
+    background: var(--bg-deep);
+    font-style: italic;
+  }
+
+  /* ============ CALLOUTS ============ */
+  .callout {
+    padding: 16px 18px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--brand-primary-light);
+    margin: 18px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .callout strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  .callout.warning {
+    border-left-color: var(--accent-amber);
+  }
+
+  .callout.warning strong {
+    color: var(--accent-amber);
+  }
+
+  .callout.tip {
+    border-left-color: var(--accent-mint);
+  }
+
+  .callout.tip strong {
+    color: var(--accent-mint);
+  }
+
+  /* ============ SHARING SUB-SECTION ============ */
+  .subsection {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--border-soft);
+  }
+
+  .subsection-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.015em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .subsection-title::before {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background: var(--accent-gold);
+    border-radius: 2px;
+  }
+
+  .share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .share-option {
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .share-option strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ============ FOOTER / TIPS ============ */
+  .tips-section {
+    margin-top: 56px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .tips-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+
+  .tips-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tip-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+  }
+
+  .tip-icon {
+    flex-shrink: 0;
+    font-size: 16px;
+    width: 22px;
+    text-align: center;
+  }
+
+  .tip-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .tip-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.7;
+  }
+
+  .footer-link {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+  .footer-divider {
+    margin: 0 8px;
+    color: var(--border-medium);
+  }
+
+  /* ============ LIGHTBOX ============ */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    cursor: zoom-out;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .lightbox.active {
+    display: flex;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  /* ============ DESKTOP REFINEMENTS ============ */
+  @media (min-width: 768px) {
+    .container { max-width: 640px; padding: 0 32px 100px; }
+    .methods { grid-template-columns: repeat(4, 1fr); }
+    .method-tab { padding: 18px 16px; }
+    h1 { font-size: 52px; }
+    .panel-title { font-size: 32px; }
+  }
+
+  @media (min-width: 1024px) {
+    .container { max-width: 720px; }
+  }
+
+  /* ============ FADE-IN ON LOAD ============ */
+  .fade-in {
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .fade-in:nth-child(1) { animation-delay: 0.05s; }
+  .fade-in:nth-child(2) { animation-delay: 0.12s; }
+  .fade-in:nth-child(3) { animation-delay: 0.2s; }
+  .fade-in:nth-child(4) { animation-delay: 0.28s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="fade-in">
+    <img src="assets/tasama-logo.png" alt="TASAMA Business Services" class="brand-logo">
+    <img src="assets/pif-logo.png" alt="A PIF Company" class="pif-logo">
+  </header>
+
+  <section class="hero fade-in">
+    <div class="eyebrow">Meeting Room Quick Start</div>
+    <h1>Connecting to a <em>Yealink</em> screen.</h1>
+    <p class="hero-sub">Four ways to bring a TASAMA meeting room into your Teams call — pick the one that fits how you're working today.</p>
+  </section>
+
+  <div class="picker-label fade-in">Choose a method</div>
+
+  <div class="methods fade-in" role="tablist">
+    <button class="method-tab active" data-method="1" role="tab">
+      <span class="method-num">METHOD 01</span>
+      <span class="method-name">Book the room in Outlook</span>
+    </button>
+    <button class="method-tab" data-method="2" role="tab">
+      <span class="method-num">METHOD 02</span>
+      <span class="method-name">Join with Meeting ID</span>
+    </button>
+    <button class="method-tab" data-method="3" role="tab">
+      <span class="method-num">METHOD 03</span>
+      <span class="method-name">Scan the room's QR code</span>
+    </button>
+    <button class="method-tab" data-method="4" role="tab">
+      <span class="method-num">METHOD 04</span>
+      <span class="method-name">Join via Room Audio</span>
+    </button>
+  </div>
+
+  <!-- ====================== METHOD 1 ====================== -->
+  <div class="method-panel active" data-panel="1">
+    <div class="panel-header">
+      <h2 class="panel-title">Book the room from your Outlook invitation</h2>
+      <div class="panel-meta">
+        <span class="meta-chip chip-best">★ Recommended</span>
+        <span class="meta-chip chip-time">⏱ Pre-scheduled</span>
+      </div>
+      <p class="panel-desc">The cleanest path. Add the meeting room as a location in Outlook — at meeting time, the room appears on the screen and you join with a single tap. No codes, no scanning.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker">1</div>
+        <div class="step-body">
+          <div class="step-text">In Outlook, open or create a meeting and click <strong>Location</strong>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">2</div>
+        <div class="step-body">
+          <div class="step-text">Pick a meeting room from the suggestions. Outlook only shows rooms that are <strong>free during your selected time</strong>.</div>
+          <div class="step-note">Need a specific room? Open <strong>Scheduling Assistant</strong> to see live availability across all TASAMA rooms before deciding.</div>
+          <figure>
+            <img src="assets/invitation.png" alt="Adding a meeting room to an Outlook invitation">
+            <figcaption>Outlook automatically suggests available rooms based on your time slot.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">3</div>
+        <div class="step-body">
+          <div class="step-text">Send the invitation. The room is now booked and the meeting will appear on its schedule.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">4</div>
+        <div class="step-body">
+          <div class="step-text">At meeting time, walk into the room and tap <strong>Join</strong> on the Yealink screen.</div>
+          <figure>
+            <img src="assets/meeting-popup.jpeg" alt="Join prompt on the Yealink screen">
+            <figcaption>The Yealink screen shows your meeting with a Join button at the scheduled time.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Sharing your screen</div>
+      <div class="share-options">
+        <div class="share-option">
+          <strong>Use the Yealink Connector (fastest)</strong>
+          Plug the USB-C dongle into your laptop, wait for the indicator to glow, then press the touch button to start sharing instantly.
+        </div>
+        <div class="share-option">
+          <strong>Share through Teams</strong>
+          Join the meeting on your laptop alongside the room (set audio to "Don't use audio" to avoid echo) and use the Share button in Teams.
+        </div>
+      </div>
+      <figure style="margin-top: 14px;">
+        <img src="assets/connector.jpeg" alt="Yealink Connector USB-C dongle">
+        <figcaption>The Yealink Connector — pairs once, then works on any TASAMA Yealink screen.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ====================== METHOD 2 ====================== -->
+  <div class="method-panel" data-panel="2">
+    <div class="panel-header">
+      <h2 class="panel-title">Join with Meeting ID &amp; Passcode</h2>
+      <div class="panel-meta">
+        <span class="meta-chip chip-best">★ External meetings</span>
+        <span class="meta-chip chip-time">⏱ ~30 seconds</span>
+      </div>
+      <p class="panel-desc">If the room wasn't added to the invitation — or if it's an external Teams meeting — you can still bring the room in using the Meeting ID and Passcode from the invitation email.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker">1</div>
+        <div class="step-body">
+          <div class="step-text">On the Yealink screen, tap <strong>Join with an ID</strong> (the <code>#</code> icon in the side menu).</div>
+          <figure>
+            <img src="assets/screen-controls.jpeg" alt="Yealink screen control menu showing Join with an ID option">
+            <figcaption>The "Join with an ID" option lives in the right-side menu of the home screen.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">2</div>
+        <div class="step-body">
+          <div class="step-text">Open the Teams meeting invitation in your email. Scroll to the bottom — you'll find the <strong>Meeting ID</strong> and <strong>Passcode</strong> under "Microsoft Teams meeting".</div>
+          <figure>
+            <img src="assets/meeting-details.png" alt="Meeting ID and Passcode shown in a Teams invitation">
+            <figcaption>Meeting ID and Passcode are listed at the bottom of every Teams invitation.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">3</div>
+        <div class="step-body">
+          <div class="step-text">Type both values into the screen.</div>
+          <figure>
+            <img src="assets/join-with-id.jpeg" alt="Join a Teams meeting with an ID screen">
+            <figcaption>Enter the ID and passcode using the on-screen keyboard.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">4</div>
+        <div class="step-body">
+          <div class="step-text">Tap <strong>Join Teams meeting</strong>. The room is now in the call.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Quick tip</strong>
+      The Meeting ID is a 12-digit number (e.g. <code>329 761 338 828</code>) and the Passcode is a short alphanumeric string. Spaces in the ID are optional — type it however you like.
+    </div>
+  </div>
+
+  <!-- ====================== METHOD 3 ====================== -->
+  <div class="method-panel" data-panel="3">
+    <div class="panel-header">
+      <h2 class="panel-title">Scan the QR code on the screen</h2>
+      <div class="panel-meta">
+        <span class="meta-chip chip-best">★ Walk-up &amp; go</span>
+        <span class="meta-chip chip-time">⏱ ~10 seconds</span>
+      </div>
+      <p class="panel-desc">Every Yealink screen displays a unique QR code in the top-left corner. Scanning it from the Teams app on your phone or laptop adds the room as a participant to your current meeting.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker">1</div>
+        <div class="step-body">
+          <div class="step-text">Start or join a Teams meeting on your phone or laptop.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">2</div>
+        <div class="step-body">
+          <div class="step-text">Point your camera at the QR code in the <strong>top-left corner</strong> of the Yealink screen, labelled "Join your meeting with this room".</div>
+          <figure>
+            <img src="assets/screen.jpeg" alt="Yealink screen showing the QR code in the top-left">
+            <figcaption>The QR code is always visible on the home screen, top-left.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">3</div>
+        <div class="step-body">
+          <div class="step-text">Confirm in Teams — the room joins your meeting automatically.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">4</div>
+        <div class="step-body">
+          <div class="step-text">Invite other participants from your device as needed. Use the room for audio, video, and the big screen.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Why use this method?</strong>
+      It's the fastest path when you walk into a free room and decide to start a meeting on the spot — no need to type IDs or open Outlook.
+    </div>
+  </div>
+
+  <!-- ====================== METHOD 4 ====================== -->
+  <div class="method-panel" data-panel="4">
+    <div class="panel-header">
+      <h2 class="panel-title">Join from your laptop, route audio through the room</h2>
+      <div class="panel-meta">
+        <span class="meta-chip chip-best">★ Drive from your laptop</span>
+        <span class="meta-chip chip-time">⏱ ~20 seconds</span>
+      </div>
+      <p class="panel-desc">Teams detects nearby Yealink rooms via Bluetooth proximity. This lets you control the meeting from your laptop while the room provides audio, camera, and the big screen — best when you want both your familiar laptop view and full room hardware.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker">1</div>
+        <div class="step-body">
+          <div class="step-text">Open the Teams meeting on your laptop — but <strong>don't click Join yet</strong>.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">2</div>
+        <div class="step-body">
+          <div class="step-text">On the pre-join screen, look at the audio options on the right and select <strong>Room audio</strong>.</div>
+          <div class="step-note">Teams will show "We've detected a room device" when proximity works.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">3</div>
+        <div class="step-body">
+          <div class="step-text">Choose your room from the <strong>Nearby</strong> list (e.g. <code>Al-Raidah Tower Main 2F-MR05</code>). If yours doesn't appear, search for it.</div>
+          <figure>
+            <img src="assets/join-with-room.png" alt="Selecting a Room Audio option in Teams pre-join screen">
+            <figcaption>Teams suggests nearby rooms automatically — pick yours from the list.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker">4</div>
+        <div class="step-body">
+          <div class="step-text">Click <strong>Join now</strong>. The Yealink screen joins automatically and your laptop becomes the controller.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <strong>⚠ Avoid the echo</strong>
+      Room Audio routes sound through the room speakers. Don't switch back to Computer Audio while you're inside the room — your laptop mic will pick up the room speakers and create feedback.
+    </div>
+  </div>
+
+  <!-- ====================== TIPS ====================== -->
+  <section class="tips-section">
+    <h3 class="tips-title">Good to know</h3>
+    <div class="tips-grid">
+      <div class="tip-item">
+        <div class="tip-icon">📅</div>
+        <div class="tip-text"><strong>Check before you walk in.</strong> The right side of the Yealink screen shows the room's schedule for today and tomorrow — green means available.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🔌</div>
+        <div class="tip-text"><strong>The Yealink Connector is universal.</strong> Pair it once and it works on every TASAMA Yealink screen.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🚪</div>
+        <div class="tip-text"><strong>Always end the meeting properly.</strong> Tap <em>Leave</em> on the screen when you're done so the room is freed up for the next user.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🎤</div>
+        <div class="tip-text"><strong>Mute your laptop mic in the room.</strong> If you join from both the room and your laptop, set your laptop to "Don't use audio" to avoid echo.</div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🆘</div>
+        <div class="tip-text"><strong>Connector lost or dead?</strong> Methods 2, 3, and 4 don't need it — you can still get the room into your call.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-text">
+      Need help? Contact the Digital Experience &amp; Automation team.
+    </div>
+  </footer>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Image preview">
+  <img src="" alt="" id="lightbox-img">
+</div>
+
+<script>
+  // ===== Method tab switching =====
+  const tabs = document.querySelectorAll('.method-tab');
+  const panels = document.querySelectorAll('.method-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.method;
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`[data-panel="${id}"]`).classList.add('active');
+
+      // Smooth scroll to panel start
+      const panel = document.querySelector(`[data-panel="${id}"]`);
+      const offset = panel.getBoundingClientRect().top + window.scrollY - 20;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    });
+  });
+
+  // ===== Image lightbox =====
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('figure img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>
