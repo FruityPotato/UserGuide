@@ -394,6 +394,25 @@
     font-style: italic;
   }
 
+  /* Product shots on transparent backgrounds - softer treatment */
+  figure.figure-product {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  figure.figure-product img {
+    padding: 12px 0;
+  }
+
+  figure.figure-product figcaption {
+    border-top: 1px solid var(--border-soft);
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   /* ============ CALLOUTS ============ */
   .callout {
     padding: 16px 18px;
@@ -718,9 +737,9 @@
           Join the meeting on your laptop alongside the room (set audio to "Don't use audio" to avoid echo) and use the Share button in Teams.
         </div>
       </div>
-      <figure style="margin-top: 14px;">
-        <img src="assets/connector.jpeg" alt="Yealink Connector USB-C dongle">
-        <figcaption>The Yealink Connector — pairs once, then works on any TASAMA Yealink screen.</figcaption>
+      <figure class="figure-product" style="margin-top: 14px;">
+        <img src="assets/connector.png" alt="Yealink Connector USB-C dongle">
+        <figcaption>The Yealink Connector — each room has its own designated dongle.</figcaption>
       </figure>
     </div>
   </div>
@@ -804,7 +823,7 @@
         <div class="step-body">
           <div class="step-text">Point your camera at the QR code in the <strong>top-left corner</strong> of the Yealink screen, labelled "Join your meeting with this room".</div>
           <figure>
-            <img src="assets/screen.jpeg" alt="Yealink screen showing the QR code in the top-left">
+            <img src="assets/screen.png" alt="Yealink screen showing the QR code in the top-left">
             <figcaption>The QR code is always visible on the home screen, top-left.</figcaption>
           </figure>
         </div>
@@ -888,7 +907,7 @@
       </div>
       <div class="tip-item">
         <div class="tip-icon">🔌</div>
-        <div class="tip-text"><strong>The Yealink Connector is universal.</strong> Pair it once and it works on every TASAMA Yealink screen.</div>
+        <div class="tip-text"><strong>Connectors stay with their room.</strong> Each Yealink screen has its own designated connector — please don't move them between rooms.</div>
       </div>
       <div class="tip-item">
         <div class="tip-icon">🚪</div>
