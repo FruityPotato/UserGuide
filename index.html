@@ -3,36 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#04081C">
+<meta name="theme-color" content="#FFFFFF">
 <title>TASAMA Meeting Room Guide — Yealink</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Backgrounds — deep TASAMA blue-violet base */
-    --bg-deep: #050322;
-    --bg-surface: #0A0735;
-    --bg-elevated: #131046;
-    --bg-card: rgba(255,255,255,0.04);
-    --bg-card-hover: rgba(255,255,255,0.07);
-    --border-soft: rgba(255,255,255,0.08);
-    --border-medium: rgba(255,255,255,0.14);
-    --text-primary: #F2F4FF;
-    --text-secondary: rgba(242,244,255,0.72);
-    --text-tertiary: rgba(242,244,255,0.48);
+    /* Light-mode foundations */
+    --bg-deep: #FFFFFF;
+    --bg-surface: #FAFAFC;
+    --bg-elevated: #F5F5F9;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFAFC;
+    --bg-tinted: rgba(16,6,158,0.04);
+    --border-soft: rgba(16,6,158,0.10);
+    --border-medium: rgba(16,6,158,0.18);
+    --text-primary: #0A0825;
+    --text-secondary: rgba(10,8,37,0.72);
+    --text-tertiary: rgba(10,8,37,0.50);
     /* TASAMA official palette */
     --brand-primary: #10069E;          /* Main TASAMA blue */
-    --brand-primary-light: #5247D9;    /* Lifted for legibility on dark */
-    --brand-primary-glow: rgba(82,71,217,0.35);
-    --accent-gold: #B59D5E;            /* TASAMA gold */
-    --accent-gold-soft: rgba(181,157,94,0.12);
-    --accent-mint: #ADDC91;            /* TASAMA mint */
-    --accent-mint-soft: rgba(173,220,145,0.12);
-    --accent-amber: #FFB45B;           /* Warning only */
-    --gradient-mesh: radial-gradient(ellipse at 20% 0%, rgba(82,71,217,0.22) 0%, transparent 50%),
-                     radial-gradient(ellipse at 80% 60%, rgba(16,6,158,0.18) 0%, transparent 55%),
-                     radial-gradient(ellipse at 50% 100%, rgba(181,157,94,0.05) 0%, transparent 50%);
+    --brand-primary-soft: rgba(16,6,158,0.08);
+    --brand-primary-glow: rgba(16,6,158,0.18);
+    --accent-gold: #8C7838;            /* Slightly darkened B59D5E for white-bg contrast */
+    --accent-gold-bright: #B59D5E;     /* Official gold, used for fills only */
+    --accent-gold-soft: rgba(181,157,94,0.14);
+    --accent-mint: #6BA84F;            /* Darkened ADDC91 for text legibility */
+    --accent-mint-bright: #ADDC91;     /* Official mint, used for fills only */
+    --accent-mint-soft: rgba(173,220,145,0.22);
+    --accent-amber: #C97A1A;           /* Warning, darkened for contrast */
+    --gradient-mesh: radial-gradient(ellipse at 15% 0%, rgba(16,6,158,0.06) 0%, transparent 45%),
+                     radial-gradient(ellipse at 85% 30%, rgba(181,157,94,0.05) 0%, transparent 45%),
+                     radial-gradient(ellipse at 50% 100%, rgba(173,220,145,0.04) 0%, transparent 50%);
+    --shadow-card: 0 1px 2px rgba(10,8,37,0.04), 0 4px 12px rgba(10,8,37,0.04);
+    --shadow-card-active: 0 1px 2px rgba(16,6,158,0.10), 0 12px 30px -10px rgba(16,6,158,0.25);
+    --shadow-figure: 0 1px 3px rgba(10,8,37,0.06), 0 8px 20px -8px rgba(10,8,37,0.10);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -59,16 +65,6 @@
     z-index: 0;
   }
 
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
-  }
-
   .container {
     position: relative;
     z-index: 1;
@@ -89,16 +85,15 @@
   }
 
   .brand-logo {
-    height: 36px;
+    height: 40px;
     width: auto;
     display: block;
   }
 
   .pif-logo {
-    height: 30px;
+    height: 24px;
     width: auto;
     display: block;
-    opacity: 0.95;
   }
 
   /* ============ HERO ============ */
@@ -111,8 +106,8 @@
     align-items: center;
     gap: 8px;
     font-size: 11px;
-    font-weight: 600;
-    color: var(--accent-gold);
+    font-weight: 700;
+    color: var(--brand-primary);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     margin-bottom: 18px;
@@ -122,7 +117,7 @@
     content: '';
     width: 24px;
     height: 1px;
-    background: var(--accent-gold);
+    background: var(--brand-primary);
   }
 
   h1 {
@@ -138,7 +133,7 @@
   h1 em {
     font-style: italic;
     font-weight: 400;
-    color: var(--accent-gold);
+    color: var(--brand-primary);
   }
 
   .hero-sub {
@@ -149,9 +144,10 @@
   }
 
   /* ============ METHOD PICKER ============ */
+  /* Picker label - bumped weight for white-bg readability */
   .picker-label {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-tertiary);
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -180,6 +176,7 @@
     gap: 8px;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-card);
   }
 
   .method-tab:hover {
@@ -189,9 +186,9 @@
   }
 
   .method-tab.active {
-    background: linear-gradient(135deg, rgba(82,71,217,0.22) 0%, rgba(16,6,158,0.10) 100%);
-    border-color: var(--brand-primary-light);
-    box-shadow: 0 0 0 1px var(--brand-primary-light), 0 12px 30px -12px var(--brand-primary-glow);
+    background: var(--bg-card);
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 1px var(--brand-primary), var(--shadow-card-active);
   }
 
   .method-tab.active::before {
@@ -199,19 +196,19 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-gold), var(--brand-primary-light));
+    background: linear-gradient(90deg, var(--brand-primary), var(--accent-gold-bright));
   }
 
   .method-num {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-tertiary);
     letter-spacing: 0.05em;
   }
 
   .method-tab.active .method-num {
-    color: var(--accent-gold);
+    color: var(--brand-primary);
   }
 
   .method-name {
@@ -273,13 +270,13 @@
   .chip-best {
     background: var(--accent-gold-soft);
     color: var(--accent-gold);
-    border: 1px solid rgba(181,157,94,0.3);
+    border: 1px solid rgba(140,120,56,0.25);
   }
 
   .chip-time {
     background: var(--accent-mint-soft);
     color: var(--accent-mint);
-    border: 1px solid rgba(173,220,145,0.3);
+    border: 1px solid rgba(107,168,79,0.25);
   }
 
   .panel-desc {
@@ -307,15 +304,15 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-medium);
+    background: var(--bg-card);
+    border: 1.5px solid var(--brand-primary);
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
-    font-weight: 600;
-    color: var(--accent-gold);
+    font-weight: 700;
+    color: var(--brand-primary);
     position: relative;
     z-index: 2;
   }
@@ -344,18 +341,19 @@
   }
 
   .step-text strong {
-    color: var(--accent-gold);
-    font-weight: 600;
+    color: var(--brand-primary);
+    font-weight: 700;
   }
 
   .step-text code {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12.5px;
-    background: var(--bg-elevated);
+    background: var(--bg-tinted);
     border: 1px solid var(--border-soft);
     padding: 2px 7px;
     border-radius: 5px;
-    color: var(--text-primary);
+    color: var(--brand-primary);
+    font-weight: 600;
   }
 
   .step-note {
@@ -371,7 +369,8 @@
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-soft);
-    background: var(--bg-elevated);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-figure);
   }
 
   figure img {
@@ -391,7 +390,7 @@
     font-size: 12px;
     color: var(--text-tertiary);
     border-top: 1px solid var(--border-soft);
-    background: var(--bg-deep);
+    background: var(--bg-surface);
     font-style: italic;
   }
 
@@ -399,9 +398,9 @@
   .callout {
     padding: 16px 18px;
     border-radius: 12px;
-    background: var(--bg-card);
+    background: var(--brand-primary-soft);
     border: 1px solid var(--border-soft);
-    border-left: 3px solid var(--brand-primary-light);
+    border-left: 3px solid var(--brand-primary);
     margin: 18px 0;
     font-size: 14px;
     color: var(--text-secondary);
@@ -410,7 +409,7 @@
 
   .callout strong {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 700;
     display: block;
     margin-bottom: 4px;
     font-size: 13px;
@@ -418,6 +417,7 @@
   }
 
   .callout.warning {
+    background: rgba(201,122,26,0.06);
     border-left-color: var(--accent-amber);
   }
 
@@ -426,6 +426,7 @@
   }
 
   .callout.tip {
+    background: var(--accent-mint-soft);
     border-left-color: var(--accent-mint);
   }
 
@@ -455,7 +456,7 @@
     content: '';
     width: 4px;
     height: 16px;
-    background: var(--accent-gold);
+    background: var(--brand-primary);
     border-radius: 2px;
   }
 
@@ -470,6 +471,7 @@
     border-radius: 10px;
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-card);
     font-size: 14px;
     line-height: 1.55;
     color: var(--text-secondary);
@@ -477,7 +479,7 @@
 
   .share-option strong {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 700;
     display: block;
     margin-bottom: 3px;
   }
@@ -510,6 +512,7 @@
     background: var(--bg-card);
     border: 1px solid var(--border-soft);
     border-radius: 10px;
+    box-shadow: var(--shadow-card);
   }
 
   .tip-icon {
@@ -527,7 +530,7 @@
 
   .tip-text strong {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 700;
   }
 
   /* ============ FOOTER ============ */
@@ -545,9 +548,9 @@
   }
 
   .footer-link {
-    color: var(--accent-gold);
+    color: var(--brand-primary);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .footer-link:hover {
